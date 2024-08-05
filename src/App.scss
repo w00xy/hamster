@@ -1,0 +1,132 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Montserrat;
+  list-style-type: none;
+}
+.main {
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+.capital{
+  font-size: max(2.2em, 38px);
+  line-height: 1.1em;
+  text-align: start;
+  width: 80%;
+  font-weight: 900;
+  margin-top: 30px;
+}
+.buttons {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+}
+.get-key-button {
+  border: none;
+  outline: none;
+  width: 80%;
+  height: 52px;
+  font-size: 2em;
+  border-radius: 25px;
+  font-weight: 500;
+  color: white;
+}
+.one-key{
+  background-color: #707bff;
+}
+.four-keys{
+  background-color: darkslateblue ;
+}
+.keys {
+  min-height: max(200px, 35vh);
+  width: 80%;
+  overflow: hidden;
+
+
+  --border-angle: 0turn; // For animation.
+  --main-bg: conic-gradient(
+      from var(--border-angle),
+      #fff,
+      #fff 5%,
+      #fff 60%,
+      #fff 95%
+    );
+
+  border: solid 5px transparent;
+  border-radius: 2em;
+  --gradient-border: conic-gradient(from var(--border-angle), transparent 5%, #7dbbf8, #1084f6,   99%, transparent);
+
+  background:
+    // padding-box clip this background in to the overall element except the border.
+    var(--main-bg) padding-box,
+    // border-box extends this background to the border space
+    var(--gradient-border) border-box,
+    // Duplicate main background to fill in behind the gradient border. You can remove this if you want the border to extend "outside" the box background.
+    var(--main-bg) border-box;
+
+  background-position: center center;
+
+  animation: bg-spin 7s linear infinite;
+  @keyframes bg-spin {
+    to {
+      --border-angle: 1turn;
+    }
+  }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}
+.key{
+  width: 100%;
+  height: 25%;
+  // border: 3px solid black;
+  // border-radius: 25px;
+  box-sizing: border-box;
+  line-height: 100%;
+  font-size: 4.5vw;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    background-color: #1084f6;
+    border-radius: 100%;
+    width: 20px;
+    margin-left: 15px;
+    padding: 5px;
+  }
+
+}
+
+.error {
+  width: 80%;
+  color: red;
+  font-weight: 500;
+  text-align: center;
+  font-size: 0.8em;
+}
+.info {
+  width: 80%;
+  font-weight: 500;
+  text-align: center;
+  font-size: 0.8em;
+  text-align: start;
+  margin-left: 30px;
+}
+
+.disabled{
+  user-select: none;
+  opacity: 0.7;
+  pointer-events: none;
+}
