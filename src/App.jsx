@@ -8,7 +8,14 @@ function App() {
 const [info, setInfo] = useState('Key generation might take up to 3 minutes')
 const [keys, setKeys] = useState([])
 const [isPressed, setIsPressed] = useState(false)
-const [isPressedCopy, setisPressedCopy] = useState(false)
+const [isPressedCopy, setIsPressedCopy] = useState({
+  0: false,
+  1: false,
+  2: false,
+  3: false,
+
+})
+
 
 const generateKey = (count) => {
  const APP_TOKEN = 'd28721be-fd2d-4b45-869e-9f253b554e50';
@@ -24,7 +31,8 @@ const generateKey = (count) => {
 
 //  Trying to get bearer token of this random client id
  const getClientToken = async () => {
-  setInfo('Client token generating')
+  // setInfo('Client token generating')
+  // loadingText('Client token generating')
 
   const id = generateClientId();
   const body = {
@@ -58,7 +66,8 @@ const generateKey = (count) => {
  };
 
  const registerEvent = async (token) => {
-  setInfo('Key generating')
+  // setInfo('Key generating')
+  loadingText('Key generating')
   const body = {
    promoId: PROMO_ID,
    eventId: uuidv4(),
@@ -85,7 +94,8 @@ const generateKey = (count) => {
     })
     .catch((err) => {
      console.log(`не удалось зарегистрировать событие. Ошибка: ${err}`);
-     setInfo('ERROR Try again')
+    //  setInfo('ERROR Try again')
+     loadingText('ERROR Try again')
      setIsPressed(false)
     });
   }, 25000);
@@ -109,7 +119,8 @@ const generateKey = (count) => {
    .then(({ promoCode }) => {
     if (count) {
      setTimeout(() => start(), 2000);
-    setInfo(`${count} Keys left`)
+    // setInfo(`${count} Keys left`)
+    loadingText(`${count} Keys left`)
     } else {
     setKeys(k => [...k, promoCode])
     setIsPressed(false)
@@ -139,19 +150,39 @@ const handleFourKey = (el) => {
   }
 }
 
-const handleCopy = (el) => {
-  setisPressedCopy(true)
-  setTimeout(() => {
-    setisPressedCopy(false)
-  }, 1500);
+
+let dots = '';
+const loadingText = (text) => {
+  setInterval(() => {
+    dots += '.';
+    setInfo(text + dots)
+
+    if (dots.length === 3) {
+      dots = '';
+    }
+  }, 1000);
 }
+
+const handleCopy = (index) => {
+  navigator.clipboard.writeText(keys[index])
+  let pressed = {...isPressedCopy}
+  pressed[index] = true
+  setIsPressedCopy(pressed)
+  setTimeout(() => {
+    pressed = {...isPressedCopy}
+    for (let index = 0; index < 4; index++) {
+      pressed[index] = false
+    }
+    setIsPressedCopy(pressed)
+  }, 1200);
+};
 
   return (
     <div className='main'>
       <h1 className='capital'>Click the button to get key 👇</h1>
       <ul className='keys' >
         {keys.map((el, index) => (
-          <li className='key' key={index}>{el} <img onClick={handleCopy} src={(isPressedCopy ? 'copied.png' : 'copy.png')} alt='copy'/></li>
+          <li className='key' key={index}>{el} <img onClick={() => handleCopy(index)} key={index} src={(isPressedCopy[index] ? 'copied.png' : 'copy.png')} alt='copy'/></li>
         ))}
       </ul>
       <div className='info'>{info}</div>
