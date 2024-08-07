@@ -2,14 +2,10 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import './Buttons.scss'
 
-const APP_TOKEN = 'd28721be-fd2d-4b45-869e-9f253b554e50';
-const PROMO_ID = '43e35910-c168-4634-ad4f-52fd764a843f';
 
 function Buttons(props) {
 
-
   const [isPressed, setIsPressed] = useState(false)
-
 
   const generateKey = (APP_TOKEN, PROMO_ID) => {
 
@@ -136,13 +132,16 @@ function Buttons(props) {
 //   }, 1000);
 // }
 
+
+
 const handleOneKey = () => {
   setIsPressed(true);
   if (props.keys.length > 3) {
     props.setKeys([]);
   }
   props.setInfo('Key is generating...');
-  generateKey(APP_TOKEN, PROMO_ID, props.setKeys, props.keys);
+  console.log(props.APP_TOKEN, props.PROMO_ID)
+  generateKey(props.APP_TOKEN, props.PROMO_ID, props.setKeys, props.keys);
 };
 
   const handleFourKey = () => {
@@ -150,7 +149,7 @@ const handleOneKey = () => {
     if(props.keys){props.setKeys([])}
     props.setInfo('Key is generating...')
     for (let index = 0; index < 4; index++) {
-      generateKey(APP_TOKEN, PROMO_ID, props.setKeys, props.keys);
+      generateKey(props.APP_TOKEN, props.PROMO_ID, props.setKeys, props.keys);
     }
   }
 

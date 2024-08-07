@@ -1,18 +1,20 @@
 .eventkey {
   display: flex;
   min-height: 100vh;
-  min-width: 100vw;
+  width: 100vw;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
 .capital{
-  font-size: max(2.2em, 38px);
+  font-size: min(30vw, 28px);
   line-height: 1.1em;
   text-align: start;
-  width: 80%;
+  width: 65%;
   font-weight: 900;
+  margin-right: 15%;
   margin-top: 30px;
+  margin-bottom: 0px;
 }
 .error {
   width: 80%;

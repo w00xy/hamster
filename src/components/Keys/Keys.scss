@@ -67,3 +67,17 @@
   }
 
 }
+.back-to-home {
+  background-color: #1084f6;
+  max-width: fit-content;
+  padding: 5px;
+  border-radius: 0.5rem;
+  position: absolute;
+  color: white;
+  top: 30px;
+  right: 10%;
+  a{
+    text-decoration: none;
+    color: white;
+  }
+}
