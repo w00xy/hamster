@@ -5,6 +5,8 @@
   align-items: center;
   gap: 1em;
   width: 100%;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .get-key-button {
   font-family: Montserrat;
