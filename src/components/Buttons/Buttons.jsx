@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import './Buttons.scss'
 
+let progress = 0;
 
 function Buttons(props) {
 
@@ -11,6 +12,7 @@ function Buttons(props) {
 
    // Generation of a random client id which is 19 integers
     const generateClientId = () => {
+      progress += 10
       const timestamp = Date.now();
       const randomNumbers = Array.from({ length: 19 }, () => Math.floor(Math.random() * 10)).join('');
       console.log(randomNumbers);
@@ -19,6 +21,7 @@ function Buttons(props) {
 
     //  Trying to get bearer token of this random client id
     const getClientToken = async () => {
+      progress += 10
       const id = generateClientId();
       const body = {
       appToken: APP_TOKEN,
@@ -37,22 +40,26 @@ function Buttons(props) {
       .then(({ clientToken }) => {
         if(typeof(clientToken) === undefined || !clientToken || typeof(clientToken) === null){
           console.log('Error clientToken', clientToken);
+          progress = 0
           setIsPressed(false);
           props.setInfo('Error. Something went wrong');
 
         } else {
           console.log('clientToken', clientToken);
+          progress += 20
           registerEvent(clientToken);
         }
       })
       .catch((err) => {
         console.log(`не удалось создать clientToken. Ошибка: ${err}`);
         setIsPressed(false);
+        progress = 0;
         props.setInfo('Error. Something went wrong');
       });
     };
 
     const registerEvent = async (token) => {
+      progress += 40;
       const body = {
       promoId: PROMO_ID,
       eventId: uuidv4(),
@@ -73,6 +80,7 @@ function Buttons(props) {
         .then(({ hasCode }) => {
         console.log(`hasCode: ${hasCode}`);
         if (hasCode) {
+          progress += 20;
           generateKey(token);
           clearInterval(codeInterval);
         }
@@ -101,6 +109,7 @@ function Buttons(props) {
       })
       .then((res) => res.json())
       .then(({ promoCode }) => {
+        progress = 100;
         props.setKeys(k => [...k, promoCode])
         setIsPressed(false);
         props.setInfo('Key generation might take up to 3 minutes');
@@ -108,11 +117,13 @@ function Buttons(props) {
       .catch((err) => {
         console.log(`не удалось сгенерировать ключ. Ошибка: ${err}`);
         setIsPressed(false);
+        progress = 0
         props.setInfo('Error. Something went wrong');
       });
     };
 
     const start = () => {
+      progress = 0;
       getClientToken();
     };
 
@@ -155,6 +166,7 @@ const handleOneKey = () => {
 
   return (
     <div className='buttons'>
+        {/* <progress max={100} value={progress}/>  */}
         <button id='1' className={'get-key-button one-key ' + (isPressed ? 'disabled' : '')} onClick={handleOneKey} >Get 1 key</button>
         <button id='4' className={'get-key-button four-keys ' + (isPressed ? 'disabled' : '')} onClick={handleFourKey} >Get 4 keys</button>
     </div>

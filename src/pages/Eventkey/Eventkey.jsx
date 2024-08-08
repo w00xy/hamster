@@ -17,11 +17,11 @@ function Eventkey() {
       PROMO_ID: 'b4170868-cef0-424f-8eb9-be0622e8e8e3'
     },
     'train-game': {
-      APP_TOKEN: 'd28721be-fd2d-4b45-869e-9f253b554e50',
-      PROMO_ID: '43e35910-c168-4634-ad4f-52fd764a843f'
+      APP_TOKEN: '82647f43-3f87-402d-88dd-09a90025313f',
+      PROMO_ID: 'c4480ac7-e178-4973-8061-9ed5b2e17954'
     },
     'my-clone-game': {
-      APP_TOKEN: '01e4cff9-898a-4819-859b-f70f3a6bbd3e',
+      APP_TOKEN: '74ee0b5b-775e-4bee-974f-63e7f4d5bacb',
       PROMO_ID: 'fe693b26-b342-4159-8808-15e3ff7f8767'
     }
   }
@@ -38,6 +38,7 @@ function Eventkey() {
       navigate('/404');
     }
   }, [gameId]);
+
   const APP_TOKEN = gameName[gameId].APP_TOKEN
   const PROMO_ID = gameName[gameId].PROMO_ID
 
