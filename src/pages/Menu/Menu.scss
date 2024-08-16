@@ -17,26 +17,33 @@ a {
 .cards {
   display: flex;
   flex-direction: row;
-  width: 80%;
+  width: 90%;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 15px;
   margin-top: 50px;
 
   .select-game{
-    margin-bottom: 40px;
-    background-color:#75cdff;
+    margin-bottom: 15px;
+    background-color: #3882E3 ;
     border-radius: 1rem;
-    overflow: hidden;
-    width: 40%;
-    color: black;
+    // overflow: hidden;
+    width: 29%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     p{
       text-align: center;
-      font-size: 0.9em;
+      font-size: 0.7em;
       font-weight: 600;
+      padding-top: 5px;
+      padding-bottom: 6px;
     }
     img {
-      width: 100%;
+      margin-top: 10px;
+      border-radius: 5px;
+      width: 80%;
     }
   }
 }

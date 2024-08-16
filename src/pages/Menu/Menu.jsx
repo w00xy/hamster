@@ -23,6 +23,16 @@ function Menu() {
           <img src="my-clone-army.jpg" alt="bike game" />
           <p>My Clone Army</p>
         </Link>
+        <Link className='select-game' to="/merge-away">
+          {/* <span className='new-text'>New</span> */}
+          <img src="merge-away.jpg" alt="merge away" />
+          <p>Merge away</p>
+        </Link>
+        <Link className='select-game' to="/twerk-race">
+          {/* <span className='new-text'>New</span> */}
+          <img src="twerk-race.jpg" alt="twerk-race " />
+          <p>Twerk Race 3D</p>
+        </Link>
       </div>
 
 

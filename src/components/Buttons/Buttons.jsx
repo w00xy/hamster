@@ -157,8 +157,8 @@ const handleOneKey = () => {
 
   const handleFourKey = () => {
     setIsPressed(true)
+    props.setInfo('Keys are generating...');
     if(props.keys){props.setKeys([])}
-    props.setInfo('Key is generating...')
     for (let index = 0; index < 4; index++) {
       generateKey(props.APP_TOKEN, props.PROMO_ID, props.setKeys, props.keys);
     }
@@ -166,7 +166,6 @@ const handleOneKey = () => {
 
   return (
     <div className='buttons'>
-        {/* <progress max={100} value={progress}/>  */}
         <button id='1' className={'get-key-button one-key ' + (isPressed ? 'disabled' : '')} onClick={handleOneKey} >Get 1 key</button>
         <button id='4' className={'get-key-button four-keys ' + (isPressed ? 'disabled' : '')} onClick={handleFourKey} >Get 4 keys</button>
     </div>
