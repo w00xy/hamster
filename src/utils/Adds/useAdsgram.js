@@ -8,6 +8,7 @@ export function useAdsgram({ blockId, onReward, onError }) {
   }, [blockId]);
 
   return useCallback(async () => {
+    
     if (AdControllerRef.current) {
       AdControllerRef.current
         .show()

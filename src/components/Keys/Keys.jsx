@@ -9,10 +9,6 @@ function Keys(props) {
     3: false,
   })
 
-  useEffect(() => {
-
-  }, [])
-
   const handleCopy = (index) => {
     console.log('coppied!')
     navigator.clipboard.writeText(props.keys[index])

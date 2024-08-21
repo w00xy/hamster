@@ -7,7 +7,8 @@ import { promoList } from "../../utils/promoList";
 
 function Eventkey() {
   const [info, setInfo] = useState('Key generation might take up to 3 minutes');
-  const [keys, setKeys] = useState([])
+  const [keys, setKeys] = useState([]);
+  const [tempKeys, setTempKeys] = useState([]);
 
   const { gameId }= useParams()
 
@@ -22,6 +23,7 @@ function Eventkey() {
 
   const APP_TOKEN = promoList[gameId].APP_TOKEN
   const PROMO_ID = promoList[gameId].PROMO_ID
+  const DELAY = promoList[gameId].DELAY
 
   return (
     <div className='eventkey'>
@@ -31,7 +33,7 @@ function Eventkey() {
       </div>
       <Keys keys={keys} setKeys={setKeys}/>
       <div className='info'>{info}</div>
-      <Buttons keys={keys} setKeys={setKeys} info={info} setInfo={setInfo} APP_TOKEN={APP_TOKEN} PROMO_ID={PROMO_ID}/>
+      <Buttons tempKeys={tempKeys} setTempKeys={setTempKeys} keys={keys} setKeys={setKeys} info={info} setInfo={setInfo} APP_TOKEN={APP_TOKEN} DELAY={DELAY} PROMO_ID={PROMO_ID}/>
 
     </div>
   )

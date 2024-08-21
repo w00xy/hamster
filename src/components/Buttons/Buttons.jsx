@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { v4 as uuidv4 } from 'uuid';
-import './Buttons.scss'
+import './Buttons.scss';
+import { useAdsgram } from "../../utils/Adds/useAdsgram";
 
 let progress = 0;
 
@@ -8,7 +9,7 @@ function Buttons(props) {
 
   const [isPressed, setIsPressed] = useState(false)
 
-  const generateKey = (APP_TOKEN, PROMO_ID) => {
+  const generateKey = (APP_TOKEN, PROMO_ID, DELAY) => {
 
    // Generation of a random client id which is 19 integers
     const generateClientId = () => {
@@ -21,7 +22,6 @@ function Buttons(props) {
 
     //  Trying to get bearer token of this random client id
     const getClientToken = async () => {
-      progress += 10
       const id = generateClientId();
       const body = {
       appToken: APP_TOKEN,
@@ -40,26 +40,22 @@ function Buttons(props) {
       .then(({ clientToken }) => {
         if(typeof(clientToken) === undefined || !clientToken || typeof(clientToken) === null){
           console.log('Error clientToken', clientToken);
-          progress = 0
           setIsPressed(false);
           props.setInfo('Error. Something went wrong');
 
         } else {
           console.log('clientToken', clientToken);
-          progress += 20
           registerEvent(clientToken);
         }
       })
       .catch((err) => {
         console.log(`не удалось создать clientToken. Ошибка: ${err}`);
         setIsPressed(false);
-        progress = 0;
         props.setInfo('Error. Something went wrong');
       });
     };
 
     const registerEvent = async (token) => {
-      progress += 40;
       const body = {
       promoId: PROMO_ID,
       eventId: uuidv4(),
@@ -80,7 +76,6 @@ function Buttons(props) {
         .then(({ hasCode }) => {
         console.log(`hasCode: ${hasCode}`);
         if (hasCode) {
-          progress += 20;
           generateKey(token);
           clearInterval(codeInterval);
         }
@@ -90,7 +85,7 @@ function Buttons(props) {
         setIsPressed(false);
         props.setInfo('Error. Something went wrong');
         });
-      }, 25000);
+      }, DELAY);
     };
 
     //  Generation of the key
@@ -110,7 +105,7 @@ function Buttons(props) {
       .then((res) => res.json())
       .then(({ promoCode }) => {
         progress = 100;
-        props.setKeys(k => [...k, promoCode])
+        props.setTempKeys(k => [...k, promoCode])
         setIsPressed(false);
         props.setInfo('Key generation might take up to 3 minutes');
       })
@@ -130,43 +125,45 @@ function Buttons(props) {
     start();
   };
 
-// BAG After key is generated loading text still be owrking FIX LATER
-// let dots = '';
-// const loadingText = (text) => {
-//   setInterval(() => {
-//     dots += '.';
-//     setInfo(text + dots)
+  const handleOneKey = () => {
+    setIsPressed(true);
+    if (props.tempKeys.length > 3) {
+      props.setInfo('Watch the ad and get generated keys')
+    } else {
+      props.setTempKeys([]);
+      props.setInfo('Key is generating...');
+      generateKey(props.APP_TOKEN, props.PROMO_ID, props.DELAY);
+    }
+  };
+  
+  const onReward = useCallback(() => {
+    // setKeys(...k + props.tempKeys)
+    console.log('cool')
+  }, []);
+  const onError = useCallback((result) => {
+    // props.setInfo('Watch the ad till the end to get keys');
+    console.log('fuck')
+  }, []);
 
-//     if (dots.length === 3) {
-//       dots = '';
-//     }
-//   }, 1000);
-// }
+  const showAd = useAdsgram({ blockId: "2152", onReward, onError });
 
-
-
-const handleOneKey = () => {
-  setIsPressed(true);
-  if (props.keys.length > 3) {
-    props.setKeys([]);
+  const showAd1 = () => {
+    handleOneKey()
+    showAd
   }
-  props.setInfo('Key is generating...');
-  console.log(props.APP_TOKEN, props.PROMO_ID)
-  generateKey(props.APP_TOKEN, props.PROMO_ID, props.setKeys, props.keys);
-};
 
   const handleFourKey = () => {
     setIsPressed(true)
     props.setInfo('Keys are generating...');
-    if(props.keys){props.setKeys([])}
+    if(props.tempKeys){props.setTempKeys([])}
     for (let index = 0; index < 4; index++) {
-      generateKey(props.APP_TOKEN, props.PROMO_ID, props.setKeys, props.keys);
+      generateKey(props.APP_TOKEN, props.PROMO_ID, props.DELAY);
     }
   }
 
   return (
     <div className='buttons'>
-        <button id='1' className={'get-key-button one-key ' + (isPressed ? 'disabled' : '')} onClick={handleOneKey} >Get 1 key</button>
+        <button id='1' className={'get-key-button one-key ' + (isPressed ? 'disabled' : '')} onClick={showAd1} >Get 1 key</button>
         <button id='4' className={'get-key-button four-keys ' + (isPressed ? 'disabled' : '')} onClick={handleFourKey} >Get 4 keys</button>
     </div>
   )
