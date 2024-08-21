@@ -8,7 +8,7 @@ function Buttons(props) {
 
   const [isPressed, setIsPressed] = useState(false)
 
-  const generateKey = (APP_TOKEN, PROMO_ID) => {
+  const generateKey = (APP_TOKEN, PROMO_ID, DELAY) => {
 
    // Generation of a random client id which is 19 integers
     const generateClientId = () => {
@@ -90,7 +90,7 @@ function Buttons(props) {
         setIsPressed(false);
         props.setInfo('Error. Something went wrong');
         });
-      }, 25000);
+      }, DELAY);
     };
 
     //  Generation of the key
@@ -151,8 +151,7 @@ const handleOneKey = () => {
     props.setKeys([]);
   }
   props.setInfo('Key is generating...');
-  console.log(props.APP_TOKEN, props.PROMO_ID)
-  generateKey(props.APP_TOKEN, props.PROMO_ID, props.setKeys, props.keys);
+  generateKey(props.APP_TOKEN, props.PROMO_ID, props.DELAY);
 };
 
   const handleFourKey = () => {
@@ -160,7 +159,7 @@ const handleOneKey = () => {
     props.setInfo('Keys are generating...');
     if(props.keys){props.setKeys([])}
     for (let index = 0; index < 4; index++) {
-      generateKey(props.APP_TOKEN, props.PROMO_ID, props.setKeys, props.keys);
+      generateKey(props.APP_TOKEN, props.PROMO_ID, props.DELAY);
     }
   }
 

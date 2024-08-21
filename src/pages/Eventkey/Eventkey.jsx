@@ -22,6 +22,7 @@ function Eventkey() {
 
   const APP_TOKEN = promoList[gameId].APP_TOKEN
   const PROMO_ID = promoList[gameId].PROMO_ID
+  const DELAY = promoList[gameId].DELAY
 
   return (
     <div className='eventkey'>
@@ -31,7 +32,7 @@ function Eventkey() {
       </div>
       <Keys keys={keys} setKeys={setKeys}/>
       <div className='info'>{info}</div>
-      <Buttons keys={keys} setKeys={setKeys} info={info} setInfo={setInfo} APP_TOKEN={APP_TOKEN} PROMO_ID={PROMO_ID}/>
+      <Buttons keys={keys} setKeys={setKeys} info={info} setInfo={setInfo} APP_TOKEN={APP_TOKEN} PROMO_ID={PROMO_ID} DELAY={DELAY}/>
 
     </div>
   )
