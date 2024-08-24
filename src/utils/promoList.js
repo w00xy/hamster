@@ -17,7 +17,7 @@ export const promoList = {
   'my-clone-game' : {
     APP_TOKEN: '74ee0b5b-775e-4bee-974f-63e7f4d5bacb',
     PROMO_ID: 'fe693b26-b342-4159-8808-15e3ff7f8767',
-    DELAY: '180000'
+    DELAY: '30000'
   },
   'merge-away' : {
     APP_TOKEN: '8d1cc2ad-e097-4b86-90ef-7a27e19fb833',
@@ -33,5 +33,15 @@ export const promoList = {
     APP_TOKEN: '2aaf5aee-2cbc-47ec-8a3f-0962cc14bc71',
     PROMO_ID: '2aaf5aee-2cbc-47ec-8a3f-0962cc14bc71',
     DELAY: '30000'
-  }
+  },
+  'mow-and-trim' : {
+    APP_TOKEN: 'ef319a80-949a-492e-8ee0-424fb5fc20a6',
+    PROMO_ID: 'ef319a80-949a-492e-8ee0-424fb5fc20a6',
+    DELAY: '20000',
+  },
+  'mud-racing' : {
+    APP_TOKEN: '8814a785-97fb-4177-9193-ca4180ff9da8',
+    PROMO_ID: '8814a785-97fb-4177-9193-ca4180ff9da8',
+    DELAY: '20000',
+  },
 }
