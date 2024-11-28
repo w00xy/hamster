@@ -6,11 +6,11 @@ Project was made using React
 
 This project is a simple key generator for the all HamsterKombat game. It can generate an unlimited number of keys that can be used to unlock special features or content in the game.
 
-## Website
+## Website (NOT AVAILABLE NOW)
 
 https://hamstercombatkeys.ru/
 
-## Telegram mini app
+## Telegram mini app (NOT AVAILABLE NOW)
 
 https://t.me/hamstercombat_keys_bot
 
